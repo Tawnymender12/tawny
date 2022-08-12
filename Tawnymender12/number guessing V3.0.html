@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <link rel="icon" href="icons\games_icon.ico">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="stylesheet.css">
+    <meta charset="utf-8">
+    <title>Tawnymender12 | Code/Games</title>
+  </head>
+  <body>
+    <h1 class="header"> <a href="index.html">Tawnymender12</a> </h1>
+    <hr style=" width: 90%">
+    <h2 class="h2">Code/Games</h2>
+    <table style=" width: 100%; ">
+      <tbody>
+        <tr>
+          <th> <a href="index.html">Home</a> </th>
+          <th> <a href="games.html">Code/Games</a> </th>
+          <th> <a href="about_me.html">About me</a> </th>
+        </tr>
+      </tbody>
+    </table>
+    <h3 class="h3">Number Guessing</h3>
+    <p style="text-align: center">a python executable to play a number guessing game wich you can choose the difficulty of.</p>
+    <a href="python projects\number_guessing_V3.0.exe" download> <p  style="text-align: center;font-size: 125%;">download</p> </a>
+    <br>
+    <p style="font-size: 125%;">The code:</p>
+    <br>
+    <pre>
+      import random
+      from time import sleep
+      
+      ng ="""
+      * *     *             * * *
+      *  *    *           *       *
+      *   *   *           *
+      *    *  *    * *    *     ***    * *
+      *     * *    * *     * * *  *    * *
+      
+      ---------------------------------------
+      """
+      print(ng)
+      
+      tries = 0
+      def check_answer(dfclty, nswr):
+          global tries
+          if tries == 0:
+              input_answer = input("Guess my number (1-{}): ".format(dfclty))
+          else:
+              input_answer = input("Wrong try again: ")
+          if str(nswr) == str(input_answer):
+              tries += 1
+              print("\nThat is correct")
+              print(f"attempt count {tries}")
+              tries = 0
+          else:
+              tries += 1
+              check_answer(difficulty, answer)
+      
+      running = True
+      while running:
+          difficulty = input("\nhighest number in the range: ")
+          answer = random.randint(1, int(difficulty))
+          check_answer(difficulty, answer)
+          again = input("\nplay again? (y/n) ")
+          if str(again).lower() == "y":
+              pass
+          elif str(again).lower() == "n":
+              running = False
+          else:
+              print('\nerror')
+              break
+      
+      goodbye ="""
+      ░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░
+      ░░░▄▄▀▀▀▀▀▄░░░░░░░░░░░░░░░░░░░░░░░░░░░░
+      ░░▄▀░░░░░░░▀▄░░░░░░░░░░░░░░░░░░░░░░░░░░
+      ░▄▀░░░▄▄░░░░▀▀▀▀▀▀▀▄▄▀▀▀▀▀▀▀▀▀▀▀▀▄▄░░░░
+      ░█░░░░██░░░░░░░░░░░░░░░░░░░░░░░░░░░▀▄░░
+      ░█░░░░██▄████▄░██▄░░░░▄██░▄████▄░░░░▀▄░
+      ░█░░░░██▀░░▀██▄░██▄░░██▀░██▀░▄██░░░░░█░
+      ░█░░░░██░░░░███░░█████▀░░██▄█▀▀░░░░░░█░
+      ░█░░░░███▄▄███▀░░░▀██▀░░░▀██▄▄▄██░░░░█░
+      ░▀▄░░░░▀▀▀▀▀▀░░░░░██▀░░░░░░▀▀▀▀▀░░░░░█░
+      ░░▀▄░░░░░░░░░░░░░██▀░░░▄▄░░░░░░░░░▄▄▀░░
+      ░░░░▀▀▀▀▀▀▀▀▀▄░░░▀▀░░░▄▀░▀▀▀▀▀▀▀▀▀░░░░░
+      ░░░░░░░░░░░░░▀▄░░░░░░▄▀░░░░░░░░░░░░░░░░
+      ░░░░░░░░░░░░░░░▀▀▀▀▀▀░░░░░░░░░░░░░░░░░░
+      ░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░
+      """
+      
+      print(goodbye)
+      sleep(1)
+    </pre>
+  </body>
+</html>

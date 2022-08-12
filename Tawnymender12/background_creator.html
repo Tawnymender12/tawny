@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <link rel="icon" href="icons\games_icon.ico">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="stylesheet.css">
+    <meta charset="utf-8">
+    <title>Tawnymender12 | Code/Games</title>
+  </head>
+  <body>
+    <h1 class="header"> <a href="index.html">Tawnymender12</a> </h1>
+    <hr style=" width: 90%">
+    <h2 class="h2">Code/Games</h2>
+    <table style=" width: 100%; ">
+      <tbody>
+        <tr>
+          <th> <a href="index.html">Home</a> </th>
+          <th> <a href="games.html">Code/Games</a> </th>
+          <th> <a href="about_me.html">About me</a> </th>
+        </tr>
+      </tbody>
+    </table>
+    <h3 class="h3">rotating square</h3>
+    <p style="text-align: center">a python executable to create a rotating shape the edges of the window.</p>
+    <a href="python projects\rotating_square.exe" download> <p  style="text-align: center;font-size: 125%;">download</p> </a>
+    <br>
+    <p style="font-size: 125%;">The code:</p>
+    <br>
+    <pre>
+        import pygame, sys
+
+        pygame.init()
+        
+        print('every value is in pixels (exept for max line count and color)')
+        max_line_count = int(input('max line count: '))
+        windowHeight = int(input('window height: '))
+        windowWidth = int(input('window width: '))
+        line_width = int(input('line width: '))
+        gap_width = int(input('width between lines: '))
+        color_pygame_name = input('color (pygame color names): ')
+        
+        window_size = [windowWidth, windowHeight]
+        screen = pygame.display.set_mode(window_size, 0, 32)
+        pygame.display.set_caption("rotating square")
+        clock = pygame.time.Clock()
+        
+        i = 0
+        j = 1
+        points = [[window_size[0], window_size[1] / 2], [window_size[0] / 2, 0], [0, window_size[1] / 2], [window_size[0] / 2, window_size[1]]]
+        while 1:
+            for event in pygame.event.get():
+                if event.type == pygame.QUIT:
+                    pygame.quit()
+                    sys.exit()
+        
+            pygame.draw.lines(screen, color_pygame_name, False, points, 2)
+            pos_change = 5
+            if len(points) <= max_line_count:
+                if j % 4 == 1:
+                    points.append([points[i][0], points[i][1] - pos_change])
+                if j % 4 == 2:
+                    points.append([points[i][0] - pos_change, points[i][1]])
+                if j % 4 == 3:
+                    points.append([points[i][0], points[i][1] + pos_change])
+                if j % 4 == 0:
+                    points.append([points[i][0] + pos_change, points[i][1]])
+            i += 1
+            j += 1
+            
+            pygame.display.update()
+            clock.tick(60)
+        
+    </pre>
+  </body>
+</html>

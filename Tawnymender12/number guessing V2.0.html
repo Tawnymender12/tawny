@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <link rel="icon" href="icons\games_icon.ico">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="stylesheet.css">
+    <meta charset="utf-8">
+    <title>Tawnymender12 | Code/Games</title>
+  </head>
+  <body>
+    <h1 class="header"> <a href="index.html">Tawnymender12</a> </h1>
+    <hr style=" width: 90%">
+    <h2 class="h2">Code/Games</h2>
+    <table style=" width: 100%; ">
+      <tbody>
+        <tr>
+          <th> <a href="index.html">Home</a> </th>
+          <th> <a href="games.html">Code/Games</a> </th>
+          <th> <a href="about_me.html">About me</a> </th>
+        </tr>
+      </tbody>
+    </table>
+    <h3 class="h3">easier number guessing</h3>
+    <p style="text-align: center">a python executable to play a number guessing game wich you can choose the difficulty of (esier than the other one).</p>
+    <a href="python projects\easier_number_guessing_V2.0.exe" download> <p  style="text-align: center;font-size: 125%;">download</p> </a>
+    <br>
+    <p style="font-size: 125%;">The code:</p>
+    <br>
+    <pre>
+      import random
+      from time import sleep
+
+      ng ="""
+      * *     *             * * *
+      *  *    *           *       *
+      *   *   *           *
+      *    *  *    * *    *     ***    * *
+      *     * *    * *     * * *  *    * *
+
+      ---------------------------------------
+      """
+      print(ng)
+
+      # defiens the range
+      def choose_dificulty():
+          global difficulty
+          difficulty = input("\nhighest number in the range: ")
+
+      # creates the answer
+      def create_answer():
+          global answer
+          answer = random.randint(1, int(difficulty))
+          global answer_range
+          answer_range = int(difficulty)
+
+
+      def check_answer():
+          person_input = input("Guess my number (1-{}): ".format(answer_range))
+          if str(answer) == str(person_input):
+              print("That is correct")
+          else:
+              continue_var = input("Wrong, continue? (y/n) ")
+              if str(continue_var) == "y":
+                  check_answer()
+              elif str(continue_var) == "n":
+                  pass
+
+      def game():
+          choose_dificulty()
+          create_answer()
+          check_answer()
+
+
+      running = True
+      while running:
+          game()
+          again = input("play again? (y/n) ")
+          if str(again) == "y":
+              pass
+          elif str(again) == "n":
+              running = False
+
+
+      goodbye ="""
+      ░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░
+      ░░░▄▄▀▀▀▀▀▄░░░░░░░░░░░░░░░░░░░░░░░░░░░░
+      ░░▄▀░░░░░░░▀▄░░░░░░░░░░░░░░░░░░░░░░░░░░
+      ░▄▀░░░▄▄░░░░▀▀▀▀▀▀▀▄▄▀▀▀▀▀▀▀▀▀▀▀▀▄▄░░░░
+      ░█░░░░██░░░░░░░░░░░░░░░░░░░░░░░░░░░▀▄░░
+      ░█░░░░██▄████▄░██▄░░░░▄██░▄████▄░░░░▀▄░
+      ░█░░░░██▀░░▀██▄░██▄░░██▀░██▀░▄██░░░░░█░
+      ░█░░░░██░░░░███░░█████▀░░██▄█▀▀░░░░░░█░
+      ░█░░░░███▄▄███▀░░░▀██▀░░░▀██▄▄▄██░░░░█░
+      ░▀▄░░░░▀▀▀▀▀▀░░░░░██▀░░░░░░▀▀▀▀▀░░░░░█░
+      ░░▀▄░░░░░░░░░░░░░██▀░░░▄▄░░░░░░░░░▄▄▀░░
+      ░░░░▀▀▀▀▀▀▀▀▀▄░░░▀▀░░░▄▀░▀▀▀▀▀▀▀▀▀░░░░░
+      ░░░░░░░░░░░░░▀▄░░░░░░▄▀░░░░░░░░░░░░░░░░
+      ░░░░░░░░░░░░░░░▀▀▀▀▀▀░░░░░░░░░░░░░░░░░░
+      ░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░
+      """
+
+      print(goodbye)
+      sleep(1)
+
+    </pre>
+  </body>
+</html>

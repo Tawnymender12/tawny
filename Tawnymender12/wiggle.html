@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <link rel="icon" href="icons\games_icon.ico">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="stylesheet.css">
+    <meta charset="utf-8">
+    <title>Tawnymender12 | Code/Games</title>
+  </head>
+  <body>
+    <h1 class="header"> <a href="index.html">Tawnymender12</a> </h1>
+    <hr style=" width: 90%">
+    <h2 class="h2">Code/Games</h2>
+    <table style=" width: 100%; ">
+      <tbody>
+        <tr>
+          <th> <a href="index.html">Home</a> </th>
+          <th> <a href="games.html">Code/Games</a> </th>
+          <th> <a href="about_me.html">About me</a> </th>
+        </tr>
+      </tbody>
+    </table>
+    <h3 class="h3">Wiggle</h3>
+    <p style="text-align: center">a python executable that makes a zig zag out of the string, width and height of your choice.</p>
+    <a href="python projects\wiggle.exe" download> <p  style="text-align: center;font-size: 125%;">download</p> </a>
+    <br>
+    <p style="font-size: 125%;">The code:</p>
+    <br>
+    <pre>
+      import time
+
+      wiggle = """
+      *           *  * * *     * * *       * * *     *       * * * *
+       *         *     *     *       *   *       *   *       *
+        *   *   *      *     *           *           *       * * * *
+         * * * *       *     *     ***   *     ***   *       *
+          *   *      * * *    * * *  *    * * *  *   * * *   * * * *
+      """
+      print(wiggle)
+
+      string = input("string: ")
+      width = int(input("width: "))
+      rpt = int(input("repeat times: "))
+      i = 0
+      rpted = 0
+
+      while rpted < rpt:
+          while i < width:
+              print((" " * i) + string)
+              i+=1
+              time.sleep(0.05)
+          else:
+              while i > 0:
+                  print((" " * i) + string)
+                  i-=1
+                  time.sleep(0.05)
+          rpted+=1
+
+      end = input("press enter to exit")
+    </pre>
+  </body>
+</html>

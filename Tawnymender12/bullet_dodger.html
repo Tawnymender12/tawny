@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <link rel="icon" href="icons\games_icon.ico">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="stylesheet.css">
+    <meta charset="utf-8">
+    <title>Tawnymender12 | Code/Games</title>
+  </head>
+  <body>
+    <h1 class="header"> <a href="index.html">Tawnymender12</a> </h1>
+    <hr style=" width: 90%">
+    <h2 class="h2">Code/Games</h2>
+    <table style=" width: 100%; ">
+      <tbody>
+        <tr>
+          <th> <a href="index.html">Home</a> </th>
+          <th> <a href="games.html">Code/Games</a> </th>
+          <th> <a href="about_me.html">About me</a> </th>
+        </tr>
+      </tbody>
+    </table>
+    <h3 class="h3">Bullet Dodger</h3>
+    <p style="text-align: center">an endless game were you dodge incoming bullets</p>
+    <iframe frameborder="0" src="https://itch.io/embed/1562386?linkback=true&amp;dark=true" width="552" height="167"><a href="https://tawnymender12.itch.io/bullet-dodger">bullet dodger by tawnymender12</a></iframe>
+    <br>
+    <p style="font-size: 125%;">The code:</p>
+    <br>
+    <pre>
+      import pygame
+      from sys import exit
+      from random import randint
+
+      pygame.init()
+
+      window_size = [800, 400]
+      screen = pygame.display.set_mode(window_size, 0, 32)
+      pygame.display.set_caption("bullet dodger")
+      icon = pygame.image.load('data/gun.png')
+      pygame.display.set_icon(icon)
+
+      start_sfx = pygame.mixer.Sound('data/start.wav')
+      shoot_sfx = pygame.mixer.Sound('data/shoot.wav')
+      jump_sfx = pygame.mixer.Sound('data/jump.wav')
+      death_sfx = pygame.mixer.Sound('data/death.wav')
+
+      background_img = pygame.image.load('data/background.png')
+      ground_img = pygame.image.load('data/ground.png')
+
+      font = pygame.font.Font('data/Pixeltype.ttf', 50)
+
+      def menu():
+          game_name = font.render('bullet dodger', False, (20, 20, 20))
+          game_name_rect = game_name.get_rect(center = (400, 50))
+
+          instructions = font.render('press any button to start', False, (20, 20, 20))
+          instructions_rect = instructions.get_rect(center = (400, 350))
+
+          while 1:
+              for event in pygame.event.get():
+                  if event.type == pygame.QUIT:
+                      pygame.quit()
+                      exit()
+                  if event.type == pygame.KEYDOWN:
+                      time = int(pygame.time.get_ticks() / 1000)
+                      start_sfx.play()
+                      game(time)
+
+              screen.fill((230, 230, 230))
+              player_img_scaled = pygame.image.load('data\player_resized.png')
+              player_img_scaled_rect = player_img_scaled.get_rect(center = (400, 200))
+              screen.blit(player_img_scaled, player_img_scaled_rect)
+              screen.blit(game_name, game_name_rect)
+              screen.blit(instructions, instructions_rect)
+
+              pygame.display.update()
+
+      def game(start_time = 0):
+          player_img = pygame.image.load('data/player.png')
+          player_rect = player_img.get_rect(midbottom = (50, 300))
+
+          gun_img = pygame.image.load('data/gun.png')
+          gun_rect = gun_img.get_rect(bottomright = (800, 300))
+
+          bullet_img = pygame.image.load('data/bullet.png')
+          bullet_rect = bullet_img.get_rect(topleft = gun_rect.topright)
+
+          score = 0
+          score_text = font.render(f'score: {score}', False, (20, 20, 20))
+          score_rect = score_text.get_rect(center = (400, 50))
+
+          gravity = 0
+          can_jump = False
+
+          running = True
+          while running:
+              for event in pygame.event.get():
+                  if event.type == pygame.QUIT:
+                      exit()
+                  if (event.type == pygame.KEYDOWN and event.key == pygame.K_SPACE and can_jump) or (event.type == pygame.KEYDOWN and event.key == pygame.K_UP and can_jump):
+                      gravity = -7.5
+                      jump_sfx.play()
+                      can_jump = False
+
+              score = int(pygame.time.get_ticks() / 1000) - start_time
+              score_text = font.render(f'score: {score}', False, (20, 20, 20))
+
+              gravity += 0.25
+              player_rect.y += gravity
+              if player_rect.bottom >= 300: player_rect.bottom = 300; gravity = 0; can_jump = True
+
+              screen.blit(background_img, (0,0))
+              screen.blit(ground_img, (0, 300))
+              screen.blit(player_img, player_rect)
+              screen.blit(score_text, score_rect)
+
+              bullet_rect.x -= 2.25 + (score / 10)
+              screen.blit(bullet_img, bullet_rect)
+              if bullet_rect.x <= 0:
+                  places_list = [[800, 300], [800, 300], [800, 250]]
+                  place = places_list[randint(0, 2)]
+                  gun_rect.bottomright = place
+                  bullet_rect.topleft = gun_rect.topright
+                  shoot_sfx.play()
+              if bullet_rect.colliderect(player_rect): death_sfx.play(); dead(score)
+
+              screen.blit(gun_img, gun_rect)
+
+
+              pygame.display.update()
+          else:
+              menu()
+
+      def dead(score):
+          death_text = font.render(f'score: {score}', False, (20, 20, 20))
+          death_text_rect = death_text.get_rect(center = (400, 50))
+
+          instructions = font.render('press any button to restart', False, (20, 20, 20))
+          instructions_rect = instructions.get_rect(center = (400, 350))
+
+          while 1:
+              for event in pygame.event.get():
+                  if event.type == pygame.QUIT:
+                      pygame.quit()
+                      exit()
+                  if event.type == pygame.KEYDOWN:
+                      time = int(pygame.time.get_ticks() / 1000)
+                      start_sfx.play()
+                      game(time)
+
+              screen.fill((230, 230, 230))
+              player_img_scaled = pygame.image.load('data\player_resized_dead.png')
+              player_img_scaled_rect = player_img_scaled.get_rect(center = (400, 200))
+              screen.blit(player_img_scaled, player_img_scaled_rect)
+              screen.blit(death_text, death_text_rect)
+              screen.blit(instructions, instructions_rect)
+
+              pygame.display.update()
+
+      menu()
+
+    </pre>
+  </body>
+</html>

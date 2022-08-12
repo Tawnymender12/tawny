@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <link rel="icon" href="icons\games_icon.ico" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="stylesheet.css" />
+    <meta charset="utf-8" />
+    <title>Tawnymender12 | Code/Games</title>
+  </head>
+  <body>
+    <h1 class="header"><a href="index.html">Tawnymender12</a></h1>
+    <hr style="width: 90%;" />
+    <h2 class="h2">Code/Games</h2>
+    <table style="width: 100%;">
+      <tbody>
+        <tr>
+          <th><a href="index.html">Home</a></th>
+          <th><a href="games.html">Code/Games</a></th>
+          <th><a href="about_me.html">About me</a></th>
+        </tr>
+      </tbody>
+    </table>
+    <h3 class="h3">Hangman</h3>
+    <p style="text-align: center;">
+      a python executable to play hangman in two languages (english and
+      turkish). and you can add any words you would like.
+    </p>
+    <a href="python projects\Hangman.zip" download>
+      <p style="text-align: center; font-size: 125%;">download</p>
+    </a>
+    <br />
+    <p style="font-size: 125%;">The code:</p>
+    <br />
+    <pre>
+      from random import randint
+      from time import sleep
+
+      middle_finger = """
+      ....................../´¯/)
+      ....................,/¯../
+      .................../..../
+      ............./´¯/'...'/´¯¯`·¸
+      ........../'/.../..../......./¨¯\
+      ........('(...´...´.... ¯~/'...')
+      .........\.................'...../
+      ..........''...\.......... _.·´
+      ............\..............(
+      ..............\.............\...
+      """
+
+      def f_u():
+          print(middle_finger)
+          sleep(2)
+          exit()
+
+      # langueges
+      language = input('english or turkish (e/t): ')
+      if language == 'e':
+          a_file = open("data\words.txt", "r")
+          lines = a_file.read()
+          word_list = lines.splitlines()
+          a_file.close()
+          answer_prompt = '\nplease enter a letter: '
+          try_again = 'wrong, try again'
+          exit_prompt = '\npress enter to exit '
+          you_win ="""
+                                        .__
+           ___.__. ____  __ __  __  _  _|__| ____
+          <   |  |/  _ \|  |  \ \ \/ \/ /  |/    \
+           \___  (  <_> )  |  /  \     /|  |   |  \\
+           / ____|\____/|____/    \/\_/ |__|___|  /
+           \/                                   \/
+          """
+          you_lose = """
+                                .__
+           ___.__. ____  __ __  |  |   ____  ______ ____
+          <   |  |/  _ \|  |  \ |  |  /  _ \/  ___// __ \
+           \___  (  <_> )  |  / |  |_(  <_> )___ \\  ___/
+           / ____|\____/|____/  |____/\____/____  >\___  >
+           \/                                   \/     \/
+          """
+          already_done = 'you already tried that'
+      elif language == 't':
+          a_file = open("data\kelimeler.txt", "r")
+          lines = a_file.read()
+          word_list = lines.splitlines()
+          a_file.close()
+          answer_prompt = '\nlütfen harf girin: '
+          try_again = 'yanlış, tekrar deneyin'
+          exit_prompt = '\nçıkmak için enter\'a basın'
+          you_win = """
+           __                                      .___.__
+          |  | _______  _____________    ____    __| _/|  | ____
+          |  |/ /\__  \ \___   /\__  \  /    \  / __ | |  |/    \
+          |    <  / __ \_/    /  / __ \|   |  \/ /_/ | |  |   |  \\
+          |__|_ \(____  /_____ \(____  /___|  /\____ | |__|___|  /
+               \/     \/      \/     \/     \/      \/         \/
+          """
+          you_lose = """
+           __                  ___.           __  .__
+          |  | _______  ___.__.\_ |__   _____/  |_|__| ____
+          |  |/ /\__  \<   |  | | __ \_/ __ \   __\  |/    \
+          |    <  / __ \\___  | | \_\ \  ___/|  | |  |   |  \\
+          |__|_ \(____  / ____| |___  /\___  >__| |__|___|  /
+               \/     \/\/          \/     \/             \/
+          """
+          already_done = 'bunu önceden denedin'
+      else:
+          f_u()
+
+      # defines the word
+      word = word_list[randint(1, len(word_list)) - 1]
+      lines = list("_" * len(word))
+      print(lines)
+
+      # runs the game
+      tries = 0
+      tries_list = ''
+      running = True
+      while running:
+          answer = input(answer_prompt)
+
+          # checks answer
+          if answer not in tries_list and answer not in lines:
+              if answer in word:
+                  cycles = 0
+                  for i in word:
+                      if answer == i:
+                          lines[cycles] = answer
+                      cycles += 1
+              else:
+                  print(try_again)
+                  tries += 1
+                  tries_list += answer + ' '
+          else:
+              print(already_done)
+              continue
+
+          print(lines)
+
+          # hangs the man based on how many tries you got wrong
+          if tries == 1:
+              hangman = """
+                 ____
+                |    |
+                |
+                |
+              __|__
+              """
+          elif tries == 2:
+              hangman = """
+                 ____
+                |    |
+                |    o
+                |
+              __|__
+              """
+          elif tries == 3:
+              hangman = """
+                 ____
+                |    |
+                |    o
+                |    |
+              __|__
+              """
+          elif tries == 4:
+              hangman = """
+                 ____
+                |    |
+                |    o
+                |   /|\\
+              __|__ / \\
+              """
+          else:
+              hangman = ''
+          print(hangman)
+
+          print(tries_list)
+
+          if '_' not in lines:
+              running = False
+              print(you_win)
+          if tries == 4:
+              print(you_lose)
+              print(word)
+              running = False
+
+      # prevents the program from closing after finish
+      input(exit_prompt)
+
+    </pre>
+  </body>
+</html>

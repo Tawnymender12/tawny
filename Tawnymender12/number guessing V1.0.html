@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <link rel="icon" href="icons\games_icon.ico">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="stylesheet.css">
+    <meta charset="utf-8">
+    <title>Tawnymender12 | Code/Games</title>
+  </head>
+  <body>
+    <h1 class="header"> <a href="index.html">Tawnymender12</a> </h1>
+    <hr style=" width: 90%">
+    <h2 class="h2">Code/Games</h2>
+    <table style=" width: 100%; ">
+      <tbody>
+        <tr>
+          <th> <a href="index.html">Home</a> </th>
+          <th> <a href="games.html">Code/Games</a> </th>
+          <th> <a href="about_me.html">About me</a> </th>
+        </tr>
+      </tbody>
+    </table>
+    <h3 class="h3">Number Guessing</h3>
+    <p style="text-align: center">a python executable to play a number guessing game wich you can choose the difficulty of.</p>
+    <a href="python projects\number_guessing_V1.0.exe" download> <p  style="text-align: center;font-size: 125%;">download</p> </a>
+    <br>
+    <p style="font-size: 125%;">The code:</p>
+    <br>
+    <pre>
+      import random
+
+      running = True
+
+
+      def game():
+          print("the higher the number the harder it gets")
+          difficulty = input("difficulty: ")
+          answer = random.randint(1, (int(10) ** int(difficulty)))
+          answer_range = int(10) ** int(difficulty)
+          person_input = input("Guess my number (1-{}): ".format(answer_range))
+          if str(answer) == str(person_input):
+              print("That is correct")
+          else:
+              print("Wrong")
+
+
+      while running:
+          game()
+          again = input("play again? (y/n) ")
+          if str(again) == "y":
+              continue
+          elif str(again) == "n":
+              running = False
+
+
+      end = input("press enter to exit ")
+    </pre>
+  </body>
+</html>

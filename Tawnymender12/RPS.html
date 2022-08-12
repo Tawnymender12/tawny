@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <link rel="icon" href="icons\games_icon.ico">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="stylesheet.css">
+    <meta charset="utf-8">
+    <title>Tawnymender12 | Code/Games</title>
+  </head>
+  <body>
+    <h1 class="header"> <a href="index.html">Tawnymender12</a> </h1>
+    <hr style=" width: 90%">
+    <h2 class="h2">Code/Games</h2>
+    <table style=" width: 100%; ">
+      <tbody>
+        <tr>
+          <th> <a href="index.html">Home</a> </th>
+          <th> <a href="games.html">Code/Games</a> </th>
+          <th> <a href="about_me.html">About me</a> </th>
+        </tr>
+      </tbody>
+    </table>
+    <h3 class="h3">RPS</h3>
+    <p style="text-align: center">a python executable to play rock paper scissors.</p>
+    <a href="python projects\RPS.exe" download> <p  style="text-align: center;font-size: 125%;">download</p> </a>
+    <br>
+    <p style="font-size: 125%;">The code:</p>
+    <br>
+    <pre>
+      from random import randint
+
+      print("Rock, Paper, Scissors, SHOOT!\n\n----------------------------")
+
+      rps = """
+      * * * *      * * * *       * * * *
+      *      *     *      *     *
+      * * * *      * * * *       * * * *
+      * * *        *                    *
+      *     *      *                    *
+      *      *     *             * * * *
+      """
+      print(rps)
+
+
+      def game():
+          motions = ["null", "rock", "paper", "scissors"]
+          computer = randint(1, 3)
+          player = int(input("\nrock = 1, paper = 2, scissors = 3: "))
+          if (player == 1 and computer == 3) or (player == 2 and computer == 1) or (player == 3 and computer == 2):
+              results(player, computer, motions, "you win!")
+          elif (player == 1 and computer == 2) or (player == 2 and computer == 3) or (player == 3 and computer == 1):
+              results(player, computer, motions, "you lose")
+          else:
+              results(player, computer, motions, "it's a tie")
+
+
+      def results(player, computer, motions, line):
+          print("you picked: {}".format(motions[player]))
+          print("the computer picked: {}".format(motions[computer]))
+          print(line)
+
+
+      running = True
+      while running:
+          game()
+          again = str(input("\nplay again? (y/n) "))
+          if again == "y":
+              running = True
+          elif again == "n":
+              running = False
+
+      end = input("press enter to exit")
+    </pre>
+  </body>
+</html>

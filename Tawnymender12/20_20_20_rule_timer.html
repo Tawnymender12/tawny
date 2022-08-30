@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta name="description" content="a python executable timer for the 20 20 20 rule" />
+    <link rel="icon" href="icons\games_icon.ico">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="stylesheet.css">
+    <meta charset="utf-8">
+    <title>Tawnymender12 | Code/Games</title>
+  </head>
+  <body>
+    <h1 class="header"> <a href="index.html">Tawnymender12</a> </h1>
+    <hr style=" width: 90%">
+    <h2 class="h2">Code/Games</h2>
+    <table style=" width: 100%; ">
+      <tbody>
+        <tr>
+          <th> <a href="index.html">Home</a> </th>
+          <th> <a href="games.html">Code/Games</a> </th>
+          <th> <a href="about_me.html">About me</a> </th>
+        </tr>
+      </tbody>
+    </table>
+    <h3 class="h3">20 20 20 rule timer</h3>
+    <p style="text-align: center">a python executable timer for the 20 20 20 rule</p>
+    <a href="python projects\number_guessing_V1.0.exe" download> <p  style="text-align: center;font-size: 125%;">download</p> </a>
+    <br>
+    <p style="font-size: 125%;">The code:</p>
+    <br>
+    <pre>
+        import pygame, sys
+
+        pygame.init()
+
+        window_size = [200, 100]
+        screen = pygame.display.set_mode(window_size)
+        pygame.display.set_caption("20 20 20 rule")
+        icon = pygame.image.load("data/icon.png")
+        pygame.display.set_icon(icon)
+        clock = pygame.time.Clock()
+
+        def write(font_path: str, font_size, text: str, antialias: bool, color: str, surface, pos=(0, 0)):
+            font = pygame.font.Font(font_path, font_size)
+            rendered_text = font.render(text, antialias, color)
+            rendered_text_rect = rendered_text.get_rect(center = (pos))
+            surface.blit(rendered_text, rendered_text_rect)
+
+        def mins():
+            time = 1200
+
+            pygame.mixer.music.load('data/alarm_sound.mp3')
+
+            while 1:
+                for event in pygame.event.get():
+                    if event.type == pygame.QUIT:
+                        pygame.quit()
+                        sys.exit()
+
+                screen.fill("black")
+                if len(str(int(divmod((time), 60)[1]))) > 1: 
+                    write(None, 50, f'{int(divmod((time), 60)[0])}:{int(divmod((time), 60)[1])}', True, "cyan", screen, (window_size[0] / 2, window_size[1] / 2))
+                else: 
+                    write(None, 50, f'{int(divmod((time), 60)[0])}:0{int(divmod((time), 60)[1])}', True, "cyan", screen, (window_size[0] / 2, window_size[1] / 2))
+                if time > 0: time -= 1
+
+                if time &lt;= 0:
+                    pygame.mixer.music.play()
+                    secs()
+
+                pygame.display.flip()
+                clock.tick(1)
+
+        def secs():
+            time = 20
+
+            while 1:
+                for event in pygame.event.get():
+                    if event.type == pygame.QUIT:
+                        pygame.quit()
+                        sys.exit()
+
+                screen.fill("black")
+                write(None, 50, f'{time}', True, "cyan", screen, (window_size[0] / 2, window_size[1] / 2))
+                if time > 0: time -= 1
+
+                if time &lt;= 0:
+                    mins()
+
+                pygame.display.flip()
+                clock.tick(1)
+
+        mins()
+    </pre>
+  </body>
+</html>

@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta name="description" content="a python executable to create a rotating shape the edges of the window." />
+    <link rel="icon" href="icons\games_icon.ico">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="stylesheet.css">
+    <meta charset="utf-8">
+    <title>Tawnymender12 | Code/Games</title>
+  </head>
+  <body>
+    <h1 class="header"> <a href="index.html">Tawnymender12</a> </h1>
+    <hr style=" width: 90%">
+    <h2 class="h2">Code/Games</h2>
+    <table style=" width: 100%; ">
+      <tbody>
+        <tr>
+          <th> <a href="index.html">Home</a> </th>
+          <th> <a href="games.html">Code/Games</a> </th>
+          <th> <a href="about_me.html">About me</a> </th>
+        </tr>
+      </tbody>
+    </table>
+    <h3 class="h3">myuzik shuffler</h3>
+    <p style="text-align: center">a python program that shuffles music. To use create a folder named music in the same directory the exe is located then put all of the music you wish to listen to in there.</p>
+    <a href="python projects\myuzik shuffler.exe" download> <p  style="text-align: center;font-size: 125%;">download</p> </a>
+    <br>
+    <p style="font-size: 125%;">The code:</p>
+    <br>
+    <pre>
+      import pygame, sys, os
+      from random import randint
+
+      pygame.init()
+
+      def resource_path(relative_path):
+          base_path = getattr(sys, '_MEIPASS', os.path.dirname(os.path.abspath(__file__)))
+          return os.path.join(base_path, relative_path)
+
+      window_size = [60,  78]
+      screen = pygame.display.set_mode(window_size)
+
+      pygame.display.set_caption("myuzik shuffler")
+      icon = pygame.image.load(resource_path("icon.png")).convert_alpha()
+      pygame.display.set_icon(icon)
+
+      controls = pygame.image.load(resource_path("controls_pause.png")).convert()
+
+      music = []
+      for file in os.listdir(f"{os.getcwd()}/music"):
+          if file.endswith('.mp3') or file.endswith('.wav'):
+              music.append(file)
+              
+      back_rect = pygame.Rect((4, 26), (30, 24))
+      play_rect = pygame.Rect((44, 26), (30, 24))
+      next_rect = pygame.Rect((84, 26), (30, 24))
+
+      clock = pygame.time.Clock()
+      max_fps = 60
+      song = None
+      prev_song = f"{os.getcwd()}/music/{music[0]}"
+      pause = False
+      while 1:
+          screen.blit(pygame.transform.scale2x(controls), (0, 0))
+          for event in pygame.event.get():
+              if event.type == pygame.QUIT:
+                  pygame.quit()
+                  sys.exit()
+              if event.type == pygame.MOUSEBUTTONDOWN:
+                  if event.button == 1:
+                      if back_rect.collidepoint(pygame.mouse.get_pos()):
+                          pygame.mixer.stop()
+                          pygame.mixer.music.load(prev_song)
+                          pygame.mixer.music.play()
+                      elif play_rect.collidepoint(pygame.mouse.get_pos()): 
+                          if pause != True: 
+                              pygame.mixer.music.pause()
+                              pause = True
+                              controls = pygame.image.load(resource_path("controls_play.png")).convert() 
+                          elif pause: 
+                              pygame.mixer.music.unpause() 
+                              pause = False
+                              controls = pygame.image.load(resource_path("controls_pause.png")).convert()
+                      elif next_rect.collidepoint(pygame.mouse.get_pos()):
+                          prev_song = str(song)
+                          print(prev_song)
+                          pygame.mixer.stop()
+                          song = f"{os.getcwd()}/music/{music[randint(0, len(music) - 1)]}"
+                          pygame.mixer.music.load(song)
+                          pygame.mixer.music.play()
+              if event.type == pygame.KEYDOWN:
+                  if event.key == pygame.K_SPACE:
+                      if pause != True: 
+                          pygame.mixer.music.pause()
+                          pause = True
+                          controls = pygame.image.load(resource_path("controls_play.png")).convert() 
+                      elif pause: 
+                          pygame.mixer.music.unpause() 
+                          pause = False
+                          controls = pygame.image.load(resource_path("controls_pause.png")).convert()
+                  if event.key == pygame.K_RIGHT:
+                      prev_song = str(song)
+                      print(prev_song)
+                      pygame.mixer.stop()
+                      song = f"{os.getcwd()}/music/{music[randint(0, len(music) - 1)]}"
+                      pygame.mixer.music.load(song)
+                      pygame.mixer.music.play()
+                  if event.key == pygame.K_LEFT:
+                      pygame.mixer.stop()
+                      pygame.mixer.music.load(prev_song)
+                      pygame.mixer.music.play()
+          
+          if (pygame.mixer.music.get_busy() != True) and (pause != True):
+              prev_song = song
+              print(prev_song)
+              song = f"{os.getcwd()}/music/{music[randint(0, len(music) - 1)]}"
+              pygame.mixer.music.load(song)
+              pygame.mixer.music.play()
+          
+          pygame.display.update()
+          clock.tick(max_fps)
+
+    </pre>
+  </body>
+</html>

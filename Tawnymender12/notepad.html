@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta name="description" content="a python executable to create a rotating shape the edges of the window." />
+    <link rel="icon" href="icons\games_icon.ico">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="stylesheet.css">
+    <meta charset="utf-8">
+    <title>Tawnymender12 | Code/Games</title>
+  </head>
+  <body>
+    <h1 class="header"> <a href="index.html">Tawnymender12</a> </h1>
+    <hr style=" width: 90%">
+    <h2 class="h2">Code/Games</h2>
+    <table style=" width: 100%; ">
+      <tbody>
+        <tr>
+          <th> <a href="index.html">Home</a> </th>
+          <th> <a href="games.html">Code/Games</a> </th>
+          <th> <a href="about_me.html">About me</a> </th>
+        </tr>
+      </tbody>
+    </table>
+    <h3 class="h3">notepad</h3>
+    <p style="text-align: center">a python program that is alot like the windows notepad but has dark mode (ctrl + [ = dark mode, ctrl + ] = light mode)</p>
+    <a href="python projects\text_editor.exe" download> <p  style="text-align: center;font-size: 125%;">download</p> </a>
+    <br>
+    <p style="font-size: 125%;">The code:</p>
+    <br>
+    <pre>
+        from tkinter import *
+        from tkinter.filedialog import askopenfile
+        import sys, os
+        
+        root = Tk()
+        
+        root_width = 300
+        root_height = 500
+        monitor_width = root.winfo_screenwidth()
+        monitor_height = root.winfo_screenheight()
+        center_x = int(monitor_width /2 - root_width /2)
+        center_y = int(monitor_height /2 - root_height /2)
+        root.geometry(f'{root_width}x{root_height}+{center_x}+{center_y}')
+        
+        def resource_path(relative_path):
+            """ Get absolute path to resource, works for dev and for PyInstaller """
+            base_path = getattr(sys, '_MEIPASS', os.path.dirname(os.path.abspath(__file__)))
+            return os.path.join(base_path, relative_path)
+        
+        root.title("text editor")
+        root.iconbitmap(resource_path("notepad_icon.ico"))
+        
+        root.config(bg='black')
+        
+        root.bind('<Control-w>', lambda x: sys.exit())
+        
+        def open_f():
+            global file, entry
+            file = askopenfile(title="open a text file", mode="r",filetypes=(("txt files", "*.txt"), ("all files", "*.*")))
+            content = file.read()
+            file.close()
+            my_button.destroy()
+            entry = Text(root, width=root.winfo_width(), height=root.winfo_height())
+            entry.configure(bg= 'black', fg='white', insertbackground='white')
+            entry.pack()
+            entry.insert(END, content)
+            root.bind('<Control-s>', lambda x: abcde())
+        
+        def abcde():
+            save_file = open(file.name, "w")
+            text = entry.get(1.0, END)[:-1]
+            save_file.write(text)
+            
+        def theme1():
+            entry.configure(bg= 'black', fg='white', insertbackground='white')
+        root.bind('<Control-[>', lambda x: theme1())
+        
+        def theme2():
+            entry.configure(bg= 'white', fg='black', insertbackground='white')
+        root.bind('<Control-]>', lambda x: theme2())
+            
+        
+        my_button = Button(root, text="Open File", command=open_f, bg="#00ebeb", fg="black")
+        my_button.pack(expand=True)
+        
+        root.mainloop()
+    </pre>
+  </body>
+</html>
